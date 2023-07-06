@@ -1,13 +1,13 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from 'react-router-dom'
 
-import { HomePage } from "./pages/HomePage";
+import { HomePage } from './pages/HomePage'
 
-export function App() {
+export function App(): JSX.Element {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
       </Routes>
     </div>
-  );
+  )
 }
