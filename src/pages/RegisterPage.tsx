@@ -1,11 +1,11 @@
 import { Header } from '../components/Header'
-import { SignIn } from '../components/SignIn'
+import { Register } from '../components/Register'
 
-export function SignInPage(): JSX.Element {
+export function RegisterPage(): JSX.Element {
   return (
     <div className="flex flex-col h-screen">
       <Header></Header>
-      <SignIn></SignIn>
+      <Register></Register>
     </div>
   )
 }
