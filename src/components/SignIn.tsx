@@ -10,7 +10,12 @@ export function SignIn(): JSX.Element {
 
   const navigate = useNavigate()
 
-  const handleLogin = (email: string, password: string): void => {
+  const handleLogin = (
+    email: string,
+    password: string,
+    event: Event | undefined
+  ): void => {
+    event?.preventDefault()
     const auth = getAuth()
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {

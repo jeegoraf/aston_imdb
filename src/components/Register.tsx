@@ -10,7 +10,12 @@ export function Register(): JSX.Element {
 
   const navigate = useNavigate()
 
-  const handleRegister = (email: string, password: string): void => {
+  const handleRegister = (
+    email: string,
+    password: string,
+    event: Event | undefined
+  ): void => {
+    event?.preventDefault()
     const auth = getAuth()
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {

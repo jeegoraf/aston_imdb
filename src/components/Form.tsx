@@ -2,7 +2,11 @@ import { useState } from 'react'
 
 export function Form(props: {
   title: string
-  handleClick: (email: string, password: string) => void
+  handleClick: (
+    email: string,
+    password: string,
+    event: Event | undefined
+  ) => void
 }): JSX.Element {
   const [email, setEmail] = useState('')
   const [pass, setPass] = useState('')
@@ -30,7 +34,7 @@ export function Form(props: {
       <button
         className="mx-auto button rounded-full bg-beige text-5xl"
         onClick={() => {
-          props.handleClick(email, pass)
+          props.handleClick(email, pass, event)
         }}
       >
         {props.title}
