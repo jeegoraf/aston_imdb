@@ -23,12 +23,11 @@ export function SignIn(): JSX.Element {
               token: result,
             }
             dispatch(setUser(response))
+            navigate('/')
           })
           .catch(() => {
             alert('UNABLE TO GET TOKEN')
           })
-
-        navigate('/')
       })
       .catch(() => {
         alert('Такого пользователя не существует')

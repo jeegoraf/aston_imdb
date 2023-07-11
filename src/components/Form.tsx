@@ -8,7 +8,7 @@ export function Form(props: {
   const [pass, setPass] = useState('')
 
   return (
-    <div className="flex flex-col gap-5 mx-auto my-auto ">
+    <form className="flex flex-col gap-5 mx-auto my-auto ">
       <input
         className="mx-auto form-input rounded-full bg-gray text-5xl"
         placeholder="e-mail"
@@ -35,6 +35,6 @@ export function Form(props: {
       >
         {props.title}
       </button>
-    </div>
+    </form>
   )
 }
