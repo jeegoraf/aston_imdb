@@ -23,15 +23,14 @@ export function Register(): JSX.Element {
               token: result,
             }
             dispatch(setUser(response))
+            navigate('/')
           })
           .catch(() => {
             alert('UNABLE TO GET TOKEN')
           })
-
-        navigate('/')
       })
       .catch(() => {
-        alert('Регистрация провалена!')
+        alert('REGISTRATION FAILED')
       })
   }
   return <Form title="Sign Up" handleClick={handleRegister}></Form>
