@@ -17,3 +17,4 @@ export function useAuth (): IAuthUser {
     id
   }
 }
+

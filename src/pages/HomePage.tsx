@@ -1,9 +1,22 @@
-import { Header } from '../components/Header'
+import { useAuth } from '../hooks/useAuth'
+import { HomeButton } from './HomeButton'
+import { SignInAndRegister } from './SignInAndRegister'
+import { SignOutButton } from './SignOutButton'
 
-export function HomePage(): JSX.Element {
-  return (
-    <div className="flex flex-col">
-      <Header />
+export function Header(): JSX.Element {
+  const { isAuth } = useAuth()
+
+  return isAuth
+    ? (
+    <div className="sticky flex justify-between bg-blue px-52">
+      <HomeButton />
+      <SignOutButton />
     </div>
-  )
+      )
+    : (
+    <div className="sticky flex justify-between bg-blue px-52">
+      <HomeButton />
+      <SignInAndRegister />
+    </div>
+      )
 }
