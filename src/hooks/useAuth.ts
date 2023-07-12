@@ -1,4 +1,4 @@
-import {useAppSelector} from './hooks'
+import { useAppSelector } from './hooks'
 
 interface IAuthUser {
   isAuth: boolean | null
@@ -8,7 +8,7 @@ interface IAuthUser {
 }
 // хук, возвращающий данные о текущей авторизации
 export function useAuth (): IAuthUser {
-  const {email, token, id} = useAppSelector(state => state.user)
+  const { email, token, id } = useAppSelector(state => state.user)
 
   return {
     isAuth: !!email,
