@@ -1,12 +1,12 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { useAppDispatch } from '../hooks/hooks'
 import { setUser } from '../store/slices/userSlice'
 import { Form } from './Form'
 
 export function Register(): JSX.Element {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const navigate = useNavigate()
 

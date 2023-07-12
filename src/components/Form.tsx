@@ -14,7 +14,7 @@ export function Form(props: {
   return (
     <form className="flex flex-col gap-5 mx-auto my-auto ">
       <input
-        className="mx-auto form-input rounded-full bg-gray text-5xl"
+        className="mx-auto form-input p-4 rounded-full bg-gray text-5xl"
         placeholder="e-mail"
         type="email"
         value={email}
@@ -23,7 +23,7 @@ export function Form(props: {
         }}
       ></input>
       <input
-        className="mx-auto form-input rounded-full bg-gray text-5xl"
+        className="mx-auto form-input p-4 rounded-full bg-gray text-5xl"
         placeholder="password"
         type="password"
         value={pass}
@@ -32,7 +32,7 @@ export function Form(props: {
         }}
       ></input>
       <button
-        className="mx-auto button rounded-full bg-beige text-5xl"
+        className="mx-auto button p-4 rounded-full bg-beige text-5xl"
         onClick={() => {
           props.handleClick(email, pass, event)
         }}
