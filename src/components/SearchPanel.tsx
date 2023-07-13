@@ -1,73 +1,88 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
-interface Item {
+import { useLazyGetFilmsByKeywordQuery } from '../api'
+
+interface Film {
   id: number
   name: string
+  shortDescription: string
+  description: string
+  year: number
+  rating: number
+  poster: string | null
+}
+
+interface FilmRu {
+  id: number
+  name: string
+  description: string
+  year: number
 }
 
 export function SearchPanel(): JSX.Element {
-  const items = [
-    {
-      id: 0,
-      name: 'Cobol'
-    },
-    {
-      id: 1,
-      name: 'JavaScript'
-    },
-    {
-      id: 2,
-      name: 'Basic'
-    },
-    {
-      id: 3,
-      name: 'PHP'
-    },
-    {
-      id: 4,
-      name: 'Java'
-    }
-  ]
+  const [keyWord, setKeyWord] = useState('')
+  const [items, setItems] = useState<FilmRu[]>([])
 
-  const handleOnSearch = (string: string, results: Item[]) => {
-    // onSearch will have as the first callback parameter
-    // the string searched and for the second the results.
-    console.log(string, results)
+  const [getFilmsByKeyword, results] = useLazyGetFilmsByKeywordQuery()
+
+  useEffect(() => {
+    const copy = Object.assign([], items)
+    getFilmsByKeyword(keyWord).then((response) => {
+      response.data.films.forEach((item: any) => {
+        const film: FilmRu = {
+          id: item.filmId,
+          name: item.nameRu,
+          description: item.description,
+          year: item.year
+        }
+        copy.push(film)
+      })
+      setItems(copy)
+    }).catch((err) => { console.error(err) })
+
+    // заполнение массива будет происходить в onSearch
+    // самому дебаунс писать не нужно!!
+    // data.docs.forEach((item: any) => {
+    //   const film: Film = {
+    //     id: item.id,
+    //     name: item.name,
+    //     shortDescription: item.shortDescription,
+    //     description: item.description,
+    //     year: item.year,
+    //     rating: item.rating,
+    //     poster: item.poster
+    //   }
+    //   films.push(item)
+    // })
+    // setItems(films)
+  }, [keyWord])
+
+  const handleOnSearch = (keyWord: string) => {
+    setKeyWord(keyWord)
+    console.log(items)
   }
 
-  const handleOnHover = (result: Item) => {
-    // the item hovered
-    console.log(result)
-  }
-
-  const handleOnSelect = (item: Item) => {
-    // the item selected
-    console.log(item)
-  }
-
-  const handleOnFocus = () => {
-    console.log('Focused')
-  }
-
-  const formatResult = (item: Item) => {
+  const formatResult = (item: FilmRu) => {
     return (
-      <>
-        <span style={{ display: 'block', textAlign: 'left' }}>id: {item.id}</span>
-        <span style={{ display: 'block', textAlign: 'left' }}>name: {item.name}</span>
-      </>
+      <div className='flex justify-between pr-5'>
+        <div>{item.name}</div>
+        <div>{item.description?.slice(0, 180).concat('...') || 'Описание недоступно'}</div>
+        <div>{item.year}</div>
+      </div>
     )
   }
 
   return (
-    <ReactSearchAutocomplete
-            items={items}
-            onSearch={handleOnSearch}
-            onHover={handleOnHover}
-            onSelect={handleOnSelect}
-            onFocus={handleOnFocus}
-            autoFocus
-            formatResult={formatResult}
-          />
+    <div className='pt-2 px-2'>
+      <ReactSearchAutocomplete
+        items={items}
+        onSearch={handleOnSearch}
+        autoFocus
+        formatResult={formatResult}
+        inputDebounce={1000}
+      />
+  </div>
+
   )
 }
