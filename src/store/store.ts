@@ -1,17 +1,17 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import { filmAPIUO } from '../api'
+import { filmAPI } from '../api'
 import { userReducer } from './slices/userSlice'
 
 const rootReducer = combineReducers({
   user: userReducer,
-  [filmAPIUO.reducerPath]: filmAPIUO.reducer
+  [filmAPI.reducerPath]: filmAPI.reducer
 })
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(filmAPIUO.middleware)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(filmAPI.middleware)
   })
 }
 
