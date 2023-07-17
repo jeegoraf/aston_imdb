@@ -6,15 +6,17 @@ import { SignOutButton } from './SignOutButton'
 export function Header(): JSX.Element {
   const { isAuth } = useAuth()
 
-  return isAuth ? (
-    <div className="sticky flex justify-between bg-blue px-2">
+  return isAuth
+    ? (
+    <div className="sticky flex justify-between bg-blue px-40">
       <HomeButton />
       <SignOutButton />
     </div>
-  ) : (
-    <div className="sticky flex justify-between bg-blue px-2">
+      )
+    : (
+    <div className="sticky flex justify-between bg-blue px-40">
       <HomeButton />
       <SignInAndRegister />
     </div>
-  )
+      )
 }

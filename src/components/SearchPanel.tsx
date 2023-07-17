@@ -2,14 +2,7 @@ import { useState } from 'react'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import { useLazyGetFilmsByKeywordQuery } from '../api'
-
-interface Film {
-  id: number
-  name: string
-  description: string
-  year: number
-}
-
+import { type Film } from '../types/Film'
 export function SearchPanel() {
   const [items, setItems] = useState<Film[]>([])
   const [getFilmsByKeyword] = useLazyGetFilmsByKeywordQuery()
@@ -42,7 +35,7 @@ export function SearchPanel() {
   }
 
   return (
-    <div className='pt-2 px-2'>
+    <div className='pt-2 px-40'>
       <ReactSearchAutocomplete
         items={items}
         onSearch={handleOnSearch}
