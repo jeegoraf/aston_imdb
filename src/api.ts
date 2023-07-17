@@ -24,8 +24,11 @@ export const filmAPI = createApi({
   endpoints: (build) => ({
     getFilmsByKeyword: build.query({
       query: (keyword: string) => createRequest(`v1.2/movie/search?page=1&limit=5&query=${keyword}`)
+    }),
+    getTop24: build.query({
+      query: () => createRequest('v1.3/movie?page=1&limit=24')
     })
   })
 })
 
-export const { useLazyGetFilmsByKeywordQuery } = filmAPI
+export const { useLazyGetFilmsByKeywordQuery, useGetTop24Query } = filmAPI
