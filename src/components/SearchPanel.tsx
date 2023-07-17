@@ -2,15 +2,15 @@ import { useState } from 'react'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import { useLazyGetFilmsByKeywordQuery } from '../api'
-import { type Film } from '../types/Film'
+import { type FilmShort } from '../types/Film'
 export function SearchPanel() {
-  const [items, setItems] = useState<Film[]>([])
+  const [items, setItems] = useState<FilmShort[]>([])
   const [getFilmsByKeyword] = useLazyGetFilmsByKeywordQuery()
 
   const handleOnSearch = (keyWord: string) => {
     getFilmsByKeyword(keyWord).then((response) => {
       const res = response.data.docs.map((item: any) => {
-        const film: Film = {
+        const film: FilmShort = {
           id: item.id,
           name: item.name,
           description: item.description,
@@ -22,7 +22,7 @@ export function SearchPanel() {
     }).catch((err) => { alert(err.message) })
   }
 
-  const formatResult = (item: Film) => {
+  const formatResult = (item: FilmShort) => {
     const description = item.description ? item.description.slice(0, 18).concat('...') : 'Описание недоступно'
 
     return (

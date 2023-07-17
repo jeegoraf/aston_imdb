@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import { type FilmShort, type Response } from './types/Film'
+
 const requestHeaders = {
   'X-API-KEY': process.env.REACT_APP_KINOPOISK_API_KEY,
   'Content-Type': 'application/json'
@@ -25,8 +27,9 @@ export const filmAPI = createApi({
     getFilmsByKeyword: build.query({
       query: (keyword: string) => createRequest(`v1.2/movie/search?page=1&limit=5&query=${keyword}`)
     }),
-    getTop24: build.query({
-      query: () => createRequest('v1.3/movie?page=1&limit=24')
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    getTop24: build.query<Response, void>({
+      query: () => createRequest('v1.3/movie?page=1&limit=24&selectFields=id&selectFields=name&selectFields=description&selectFields=year&selectFields=poster')
     })
   })
 })

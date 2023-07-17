@@ -1,9 +1,7 @@
-import PropTypes from 'prop-types'
+import { type FilmShort } from '../types/Film'
 
-import { type Film } from '../types/Film'
-
-export function FilmCard(props: Film) {
-  const imgURL = props.poster ?? ''
+export function FilmCard(props: FilmShort) {
+  const imgURL = props.poster ? props.poster.url : ''
   return (
         <div className='border-solid border-2 rounded-lg border-gray bg-beige flex flex-col gap-1 justify-between items-center w-1/2 mx-auto p-2'>
             <span>{props.name}</span>
