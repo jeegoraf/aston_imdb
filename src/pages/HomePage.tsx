@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { useGetTop24Query } from '../api'
 import { FilmsList } from '../components/FilmsList'
 import { Header } from '../components/Header'
