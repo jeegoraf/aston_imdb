@@ -6,9 +6,9 @@ export interface FilmShort {
   poster?: Poster
 }
 
-interface Poster {
-  url: string
-  previewUrl: string
+export interface Poster {
+  url: string | undefined
+  previewUrl: string | undefined
 }
 
 export interface Response {

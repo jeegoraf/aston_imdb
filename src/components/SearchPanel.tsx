@@ -1,13 +1,19 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import { useLazyGetFilmsByKeywordQuery } from '../api'
 import { type FilmShort } from '../types/types'
 export function SearchPanel() {
   const [items, setItems] = useState<FilmShort[]>([])
+  const [input, setInput] = useState<string>('')
   const [getFilmsByKeyword] = useLazyGetFilmsByKeywordQuery()
 
+  const navigate = useNavigate()
+
+  // функция обработки для саджестов
   const handleOnSearch = (keyWord: string) => {
+    setInput(keyWord)
     getFilmsByKeyword({ keyWord, page: 1, count: 10 }).then((response) => {
       const res = response.data?.docs?.map((item: any) => {
         const film: FilmShort = {
@@ -19,6 +25,14 @@ export function SearchPanel() {
         return film
       })
       setItems(res ?? [])
+    }).catch((err) => { alert(err.message) })
+  }
+
+  // обработка нажатия на кнопку поиска
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    getFilmsByKeyword({ keyWord: input, page: 1, count: 24 }).then((response) => {
+      navigate('/search', { state: response.data })
     }).catch((err) => { alert(err.message) })
   }
 
@@ -35,14 +49,16 @@ export function SearchPanel() {
   }
 
   return (
-    <div className='pt-2 px-40'>
+    <div className='flex flex-col gap-2 justify-center pt-2 px-40'>
       <ReactSearchAutocomplete
         items={items}
         onSearch={handleOnSearch}
         autoFocus
         formatResult={formatResult}
         inputDebounce={1000}
+        placeholder='What are you looking for?'
       />
+      <button className='bg-beige h-14 rounded-xl text-xl' onClick={handleClick}>FIND</button>
   </div>
 
   )

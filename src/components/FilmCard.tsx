@@ -1,7 +1,13 @@
+import { useState } from 'react'
+
 import { type FilmShort } from '../types/types'
 
 export function FilmCard(props: FilmShort) {
-  const imgURL = props.poster ? props.poster.url : ''
+  // запрос к API по разным адресам возвращает объекты разного вида, поэтому нужна проверка
+
+  const [id, setId] = useState(props.id)
+  const imgURL = typeof props.poster === 'object' ? props.poster?.url : props.poster
+
   return (
         <div className='border-solid border-2 rounded-lg border-gray bg-beige flex flex-col gap-1 justify-between items-center w-1/2 mx-auto p-2'>
             <span>{props.name}</span>
