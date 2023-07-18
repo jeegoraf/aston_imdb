@@ -8,8 +8,8 @@ export function SearchPanel() {
   const [getFilmsByKeyword] = useLazyGetFilmsByKeywordQuery()
 
   const handleOnSearch = (keyWord: string) => {
-    getFilmsByKeyword(keyWord).then((response) => {
-      const res = response.data.docs.map((item: any) => {
+    getFilmsByKeyword({ keyWord, page: 1, count: 10 }).then((response) => {
+      const res = response.data?.docs?.map((item: any) => {
         const film: FilmShort = {
           id: item.id,
           name: item.name,
@@ -18,7 +18,7 @@ export function SearchPanel() {
         }
         return film
       })
-      setItems(res)
+      setItems(res ?? [])
     }).catch((err) => { alert(err.message) })
   }
 
