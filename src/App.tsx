@@ -12,7 +12,7 @@ export function App(): JSX.Element {
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/signin" element={<SignInPage />}></Route>
         <Route path="/signup" element={<RegisterPage />}></Route>
-        <Route path="/search" element={<SearchPage />}></Route>
+        <Route path="/search/:keyWord" element={<SearchPage />}></Route>
       </Routes>
     </div>
   )
