@@ -12,7 +12,7 @@ interface Poster {
 }
 
 export interface Response {
-  docs: FilmShort[] | null
+  docs: FilmShort[] | null | undefined
   total: number
   limit: number
   page: number

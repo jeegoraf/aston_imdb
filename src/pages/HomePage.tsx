@@ -21,7 +21,7 @@ export function HomePage(): JSX.Element {
     <div className="flex flex-col">
       <Header />
       <SearchPanel />
-        <FilmsList films={definedData} />
+      <FilmsList films={definedData} />
     </div>
   )
 }
