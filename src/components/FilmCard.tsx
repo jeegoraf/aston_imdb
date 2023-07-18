@@ -1,4 +1,4 @@
-import { type FilmShort } from '../types/Film'
+import { type FilmShort } from '../types/types'
 
 export function FilmCard(props: FilmShort) {
   const imgURL = props.poster ? props.poster.url : ''
