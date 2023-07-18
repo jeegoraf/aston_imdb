@@ -4,6 +4,7 @@ import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import { useLazyGetFilmsByKeywordQuery } from '../api'
 import { type FilmShort } from '../types/types'
+
 export function SearchPanel() {
   const [items, setItems] = useState<FilmShort[]>([])
   const [input, setInput] = useState<string>('')
@@ -31,9 +32,7 @@ export function SearchPanel() {
   // обработка нажатия на кнопку поиска
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    getFilmsByKeyword({ keyWord: input, page: 1, count: 24 }).then((response) => {
-      navigate('/search', { state: response.data })
-    }).catch((err) => { alert(err.message) })
+    navigate(`/search/${input}`)
   }
 
   const formatResult = (item: FilmShort) => {
