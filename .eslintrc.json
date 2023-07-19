@@ -12,7 +12,7 @@
   "plugins": ["react", "simple-import-sort"],
   "rules": {
     "no-console": "warn",
-    "multiline-ternary": "warn",
+    "multiline-ternary": "off",
     "import/no-default-export": "warn",
     "react/jsx-no-useless-fragment": "warn",
     //if we want to group imports can use below.
