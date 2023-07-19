@@ -73,4 +73,4 @@ export const filmAPI = createApi({
   })
 })
 
-export const { useLazyGetFilmsByKeywordQuery, useGetTop24Query } = filmAPI
+export const { useLazyGetFilmsByKeywordQuery, useGetFilmsByKeywordQuery, useGetTop24Query } = filmAPI
