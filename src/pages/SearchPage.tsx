@@ -4,7 +4,7 @@ import { useGetFilmsByKeywordQuery } from '../api'
 import { FilmsList } from '../components/FilmsList'
 import { Header } from '../components/Header'
 import { SearchPanel } from '../components/SearchPanel'
-import { type Response } from '../types/types'
+import { LoadingPage } from './LoadingPage'
 
 export function SearchPage() {
   const { keyWord } = useParams()
@@ -13,21 +13,18 @@ export function SearchPage() {
 
   const { data, error, isLoading } = useGetFilmsByKeywordQuery({ keyWord: definedKeyWord, page: 1, count: 24 })
 
-  const defaultValue: Response = {
-    docs: null,
-    total: 0,
-    limit: 0,
-    page: 0,
-    pages: 0
-  }
+  if (isLoading) return <LoadingPage />
 
-  const definedData = data ?? defaultValue
-
-  return (
+  return data
+    ? (
     <div className="flex flex-col">
         <Header />
         <SearchPanel />
-        <FilmsList films={definedData} />
+        <FilmsList films={data} />
     </div>
-  )
+      )
+    : <div className="flex flex-col">
+        <Header />
+        <SearchPanel />
+    </div>
 }
