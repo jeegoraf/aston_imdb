@@ -12,7 +12,7 @@
   "plugins": ["react", "simple-import-sort"],
   "rules": {
     "no-console": "warn",
-    "multiline-ternary": "warn",
+    "multiline-ternary": "off",
     "import/no-default-export": "warn",
     "react/jsx-no-useless-fragment": "warn",
     //if we want to group imports can use below.
@@ -28,6 +28,7 @@
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/object-curly-spacing": "warn",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/no-invalid-void-type": "off"
+    "@typescript-eslint/no-invalid-void-type": "off",
+    "@typescript-eslint/restrict-template-expressions": "warn"
   }
 }

@@ -20,17 +20,15 @@ export function Header(): JSX.Element {
     }
   })
 
-  return user.isAuth
-    ? (
+  return user.isAuth ? (
     <div className="sticky flex justify-between bg-blue px-40">
       <HomeButton />
       <SignOutButton />
     </div>
-      )
-    : (
-    <div className="sticky flex justify-between bg-blue px-40">
+  ) : (
+    <div className="sticky top-0 z-10 flex justify-between bg-blue px-40">
       <HomeButton />
       <SignInAndRegister />
     </div>
-      )
+  )
 }
