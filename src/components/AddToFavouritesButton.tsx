@@ -1,4 +1,4 @@
-export function AddToFavouritesButton(props: { id: string }) {
+export function AddToFavouritesButton(props: { id: string | undefined }) {
   const addToFavourites = () => {}
   return (
     <button
