@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
+
+import {loadUserFromSessionStorage} from '../../sessionStorage'
 
 const initialState = {
   email: null,
@@ -8,7 +10,7 @@ const initialState = {
 
 const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: loadUserFromSessionStorage() ?? initialState,
   reducers: {
     setUser (state, action) {
       state.email = action.payload.email
@@ -23,6 +25,6 @@ const userSlice = createSlice({
   }
 })
 
-export const { setUser, removeUser } = userSlice.actions
+export const {setUser, removeUser} = userSlice.actions
 
 export const userReducer = userSlice.reducer

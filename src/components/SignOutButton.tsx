@@ -2,6 +2,7 @@ import { getAuth, signOut } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
+import { removeUserFromSessionStorage } from '../sessionStorage'
 import { removeUser } from '../store/slices/userSlice'
 
 export function SignOutButton(): JSX.Element {
@@ -11,12 +12,15 @@ export function SignOutButton(): JSX.Element {
       className="bg-beige p-3 my-10 rounded-xl text-6xl"
       onClick={() => {
         const auth = getAuth()
-        signOut(auth).then(() => {
-          // Sign-out successful.
-        }).catch((error) => {
-          alert(error)
-        })
+        signOut(auth)
+          .then(() => {
+            // Sign-out successful.
+          })
+          .catch((error) => {
+            alert(error)
+          })
         dispatch(removeUser())
+        removeUserFromSessionStorage('user')
       }}
     >
       <Link to="/signin">SIGN OUT</Link>
