@@ -10,9 +10,9 @@ import { LoadingPage } from './LoadingPage'
 export function FilmPage() {
   const { id } = useParams()
 
-  const definedId = id ?? ''
-
-  const { data, error, isLoading } = useGetFilmByIdQuery(definedId)
+  const { data, error, isLoading } = useGetFilmByIdQuery(id, {
+    skip: !id,
+  })
 
   if (isLoading) return <LoadingPage />
 
@@ -26,7 +26,7 @@ export function FilmPage() {
           <span>{`Название: ${data.name}`}</span>
           <div>{`Описание: ${data.description}`}</div>
           <div>{`Год: ${data.year}`}</div>
-          <AddToFavouritesButton id={definedId} />
+          <AddToFavouritesButton id={id} />
         </div>
       </div>
     </div>

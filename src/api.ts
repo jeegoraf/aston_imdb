@@ -70,7 +70,7 @@ export const filmAPI = createApi({
         return result
       }
     }),
-    getFilmById: build.query<FilmShort, string>({
+    getFilmById: build.query<FilmShort, string | undefined>({
       query: (arg) => createRequest(`v1.3/movie/${arg}`),
       transformResponse: (response: FilmShort) => {
         const film: FilmShort = {
