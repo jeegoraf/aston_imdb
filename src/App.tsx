@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 
+import { FavouritesPage } from './pages/FavouritesPage'
 import { FilmPage } from './pages/FilmPage'
 import { HomePage } from './pages/HomePage'
 import { RegisterPage } from './pages/RegisterPage'
@@ -15,6 +16,7 @@ export function App(): JSX.Element {
         <Route path="/signup" element={<RegisterPage />}></Route>
         <Route path="/search/:keyWord" element={<SearchPage />}></Route>
         <Route path="/film/:id" element={<FilmPage />}></Route>
+        <Route path="/favourites" element={<FavouritesPage />}></Route>
       </Routes>
     </div>
   )

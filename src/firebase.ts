@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { type FirebaseApp, initializeApp } from 'firebase/app'
+import {type FirebaseApp, initializeApp} from 'firebase/app'
+import {getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -13,3 +14,5 @@ const firebaseConfig = {
 // Initialize Firebase
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const app: FirebaseApp = initializeApp(firebaseConfig)
+
+export const db = getFirestore(app)

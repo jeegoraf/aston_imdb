@@ -1,14 +1,16 @@
-import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useGetFilmByIdQuery } from '../api'
 import { AddToFavouritesButton } from '../components/AddToFavouritesButton'
 import { Header } from '../components/Header'
 import { SearchPanel } from '../components/SearchPanel'
+import { useAuth } from '../hooks/useAuth'
 import { LoadingPage } from './LoadingPage'
 
 export function FilmPage() {
   const { id } = useParams()
+
+  const { isAuth } = useAuth()
 
   const { data, error, isLoading } = useGetFilmByIdQuery(id, {
     skip: !id,
@@ -26,7 +28,17 @@ export function FilmPage() {
           <span>{`Название: ${data.name}`}</span>
           <div>{`Описание: ${data.description}`}</div>
           <div>{`Год: ${data.year}`}</div>
-          <AddToFavouritesButton id={id} />
+          {isAuth ? (
+            <AddToFavouritesButton
+              name={data.name}
+              description={data.description}
+              year={data.year}
+              poster={data?.poster?.url}
+              id={id}
+            />
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

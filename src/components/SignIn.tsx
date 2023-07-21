@@ -1,6 +1,8 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { collection, doc, setDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 
+import { db } from '../firebase'
 import { useAppDispatch } from '../hooks/hooks'
 import { setUser } from '../store/slices/userSlice'
 import { Form } from './Form'
@@ -14,11 +16,28 @@ export function SignIn(): JSX.Element {
     email: string,
     password: string,
     event: Event | undefined
-  ): void => {
+  ) => {
     event?.preventDefault()
     const auth = getAuth()
+
+    // авторизация
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
+        // создание коллекции для пользователя
+        const docRef = doc(db, 'users', email)
+        const data = {
+          favourites: [],
+          history: [],
+        }
+        setDoc(docRef, data)
+          .then(() => {
+            console.log('Collection created')
+          })
+          .catch((err) => {
+            console.error(err)
+          })
+
+        // запись пользователя в redux store
         user
           .getIdToken()
           .then((result) => {
