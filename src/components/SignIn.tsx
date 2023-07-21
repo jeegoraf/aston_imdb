@@ -2,7 +2,6 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch } from '../hooks/hooks'
-import { setUserToSessionStorage } from '../sessionStorage'
 import { setUser } from '../store/slices/userSlice'
 import { Form } from './Form'
 
@@ -29,7 +28,6 @@ export function SignIn(): JSX.Element {
               token: result,
             }
             dispatch(setUser(response))
-            setUserToSessionStorage(response)
             navigate('/')
           })
           .catch(() => {

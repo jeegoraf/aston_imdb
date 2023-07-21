@@ -1,5 +1,5 @@
 import { getAuth, getIdToken, onAuthStateChanged } from 'firebase/auth'
-import { useLayoutEffect } from 'react'
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { useAuth } from '../hooks/useAuth'
@@ -10,25 +10,32 @@ import { SignOutButton } from './SignOutButton'
 
 export function Header(): JSX.Element {
   const dispatch = useDispatch()
+
   // локальные данные о пользователе
-  // здесь пока пусто, так как при перезагрузке стор очищается
   const localUser = useAuth()
-  // даннные о пользователе с сервера
+
   const auth = getAuth()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        dispatch(
-          setUser({
-            email: localUser.email,
-            id: localUser.id,
-            token: localUser.token,
+        user
+          ?.getIdToken()
+          .then((result) => {
+            dispatch(
+              setUser({
+                email: user.email,
+                token: result,
+                id: user.uid,
+              })
+            )
           })
-        )
+          .catch((err) => {
+            alert(err)
+          })
       }
     })
-  })
+  }, [auth])
 
   return localUser.isAuth ? (
     <div className="sticky top-0 z-10 flex justify-between bg-blue px-40">

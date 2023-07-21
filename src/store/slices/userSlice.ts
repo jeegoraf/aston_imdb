@@ -1,7 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-import {loadUserFromSessionStorage} from '../../sessionStorage'
-
 const initialState = {
   email: null,
   token: null,
@@ -10,7 +8,7 @@ const initialState = {
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: loadUserFromSessionStorage() ?? initialState,
+  initialState,
   reducers: {
     setUser (state, action) {
       state.email = action.payload.email
