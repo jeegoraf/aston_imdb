@@ -1,25 +1,35 @@
-import { collection, doc, getDoc } from 'firebase/firestore'
-import { useEffect, useState } from 'react'
-import { useCollection, useDocument } from 'react-firebase-hooks/firestore'
-import { useNavigate } from 'react-router-dom'
+import { getAuth } from '@firebase/auth'
+import { doc } from 'firebase/firestore'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useDocument } from 'react-firebase-hooks/firestore'
+import { Navigate } from 'react-router'
 
+import { FilmsList } from '../components/FilmsList'
+import { Header } from '../components/Header'
+import { SearchPanel } from '../components/SearchPanel'
 import { db } from '../firebase'
 import { useAuth } from '../hooks/useAuth'
+import { LoadingPage } from './LoadingPage'
 
 export function FavouritesPage() {
-  const { isAuth, email } = useAuth()
-  const navigate = useNavigate()
+  const { email } = useAuth()
 
-  const [films, setFilms] = useState([])
+  const auth = getAuth()
 
-  const [value, loading, error] = useDocument(
-    doc(db, '/users', '/jeeegor@yandex.ru')
+  const [user, userIsLoading, userError] = useAuthState(auth)
+
+  const [data, dataIsloading, dataError] = useDocument(
+    doc(db, '/users', `/${email}`)
   )
 
-  useEffect(() => {
-    console.log(isAuth)
-    console.log(value?.data()?.favourites)
-  }, [isAuth])
+  if (userIsLoading) return <LoadingPage></LoadingPage>
 
-  return <></>
+  if (!user) return <Navigate to="/signin" />
+
+  return (
+    <div className="flex flex-col">
+      <Header /> <SearchPanel />{' '}
+      <FilmsList films={{ docs: data?.get('favourites') }} />
+    </div>
+  )
 }

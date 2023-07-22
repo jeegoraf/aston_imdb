@@ -1,9 +1,12 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { getAuth } from 'firebase/auth'
 import { useEffect } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { useDispatch } from 'react-redux'
 
-import { useAuth } from '../hooks/useAuth'
+import { LoadingPage } from '../pages/LoadingPage'
 import { setUser } from '../store/slices/userSlice'
+import { FavouritesButton } from './FavouritesButton'
+import { HistoryButton } from './HistoryButton'
 import { HomeButton } from './HomeButton'
 import { SignInAndRegister } from './SignInAndRegister'
 import { SignOutButton } from './SignOutButton'
@@ -11,39 +14,40 @@ import { SignOutButton } from './SignOutButton'
 export function Header(): JSX.Element {
   const dispatch = useDispatch()
 
-  // локальные данные о пользователе
-  const localUser = useAuth()
-
   const auth = getAuth()
 
-  useEffect(() => {
-    // onAuthStateChanged возвращает функцию отписки от события
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        user
-          .getIdToken()
-          .then((result) => {
-            dispatch(
-              setUser({
-                email: user.email,
-                token: result,
-                id: user.uid,
-              })
-            )
-          })
-          .catch((err) => {
-            alert(err)
-          })
-      }
-    })
-    // отписка
-    return unsubscribe
-  }, [auth])
+  // данные о пользователе с сервера
+  const [user, loading, error] = useAuthState(auth)
 
-  return localUser.isAuth ? (
+  useEffect(() => {
+    if (user) {
+      user
+        .getIdToken()
+        .then((result) => {
+          dispatch(
+            setUser({
+              email: user.email,
+              token: result,
+              id: user.uid,
+            })
+          )
+        })
+        .catch((err) => {
+          alert(err)
+        })
+    }
+  })
+
+  if (loading) return <LoadingPage />
+
+  return user ? (
     <div className="sticky top-0 z-10 flex justify-between bg-blue px-40">
       <HomeButton />
-      <SignOutButton />
+      <div className="flex justify-center content-center gap-8 py-10">
+        <FavouritesButton />
+        <HistoryButton />
+        <SignOutButton />
+      </div>
     </div>
   ) : (
     <div className="sticky top-0 z-10 flex justify-between bg-blue px-40">

@@ -1,5 +1,5 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { collection, doc, setDoc, updateDoc } from 'firebase/firestore'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 
 import { db } from '../firebase'
@@ -25,16 +25,26 @@ export function SignIn(): JSX.Element {
       .then(({ user }) => {
         // создание коллекции для пользователя
         const docRef = doc(db, 'users', email)
-        const data = {
-          favourites: [],
-          history: [],
-        }
-        setDoc(docRef, data, { merge: true })
-          .then(() => {
-            console.log('Collection created')
+
+        getDoc(docRef)
+          .then((res) => {
+            // если коллекции не существует - создаем
+            if (!res.data()) {
+              const data = {
+                favourites: [],
+                history: [],
+              }
+              setDoc(docRef, data, { merge: true })
+                .then(() => {
+                  console.log('Collection created')
+                })
+                .catch((err) => {
+                  console.error(err)
+                })
+            }
           })
           .catch((err) => {
-            console.error(err)
+            console.log(err)
           })
 
         // запись пользователя в redux store
