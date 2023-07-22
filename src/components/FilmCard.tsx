@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import { type FilmShort } from '../types/types'
 
 export function FilmCard(props: FilmShort) {
-  // запрос к API по разным адресам возвращает объекты разного вида, поэтому нужна проверка
   const [id, setId] = useState(props.id)
+
+  // запрос к API по разным адресам возвращает объекты разного вида, поэтому нужна проверка
   const imgURL =
     typeof props.poster === 'object' ? props.poster?.url : props.poster
 
