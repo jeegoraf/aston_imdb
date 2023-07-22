@@ -1,5 +1,5 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import { collection, doc, setDoc } from 'firebase/firestore'
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 
 import { db } from '../firebase'
@@ -29,7 +29,7 @@ export function SignIn(): JSX.Element {
           favourites: [],
           history: [],
         }
-        setDoc(docRef, data)
+        setDoc(docRef, data, { merge: true })
           .then(() => {
             console.log('Collection created')
           })

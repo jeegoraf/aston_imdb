@@ -1,5 +1,6 @@
-import { doc, getDoc } from 'firebase/firestore'
+import { collection, doc, getDoc } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
+import { useCollection, useDocument } from 'react-firebase-hooks/firestore'
 import { useNavigate } from 'react-router-dom'
 
 import { db } from '../firebase'
@@ -11,8 +12,13 @@ export function FavouritesPage() {
 
   const [films, setFilms] = useState([])
 
+  const [value, loading, error] = useDocument(
+    doc(db, '/users', '/jeeegor@yandex.ru')
+  )
+
   useEffect(() => {
-    if (!isAuth) navigate('/signin')
+    console.log(isAuth)
+    console.log(value?.data()?.favourites)
   }, [isAuth])
 
   return <></>
