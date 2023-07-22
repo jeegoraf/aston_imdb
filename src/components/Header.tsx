@@ -36,11 +36,8 @@ export function Header(): JSX.Element {
           })
       }
     })
-
     // отписка
-    return () => {
-      unsubscribe()
-    }
+    unsubscribe()
   }, [auth])
 
   return localUser.isAuth ? (
