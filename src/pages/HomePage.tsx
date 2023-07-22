@@ -9,16 +9,16 @@ export function HomePage(): JSX.Element {
 
   if (isLoading) return <LoadingPage />
 
-  return data
-    ? (
+  return data ? (
     <div className="flex flex-col">
       <Header />
       <SearchPanel />
       <FilmsList films={data} />
     </div>
-      )
-    : <div className="flex flex-col">
+  ) : (
+    <div className="flex flex-col">
       <Header />
       <SearchPanel />
-      </div>
+    </div>
+  )
 }

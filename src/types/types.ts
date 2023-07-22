@@ -18,3 +18,13 @@ export interface Response {
   page: number
   pages: number
 }
+
+export interface User {
+  email: string | null
+  token: string | null
+  id: string | null
+}
+
+export interface AuthUser extends User {
+  isAuth: boolean | null
+}

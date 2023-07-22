@@ -1,3 +1,4 @@
+import { getAuth, signOut } from 'firebase/auth'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -8,7 +9,16 @@ export function SignOutButton(): JSX.Element {
   return (
     <button
       className="bg-beige p-3 my-10 rounded-xl text-6xl"
-      onClick={() => dispatch(removeUser())}
+      onClick={() => {
+        const auth = getAuth()
+        signOut(auth)
+          .then(() => {
+            dispatch(removeUser())
+          })
+          .catch((error) => {
+            alert(error)
+          })
+      }}
     >
       <Link to="/signin">SIGN OUT</Link>
     </button>
