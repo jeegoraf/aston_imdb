@@ -13,12 +13,11 @@ export function SignOutButton(): JSX.Element {
         const auth = getAuth()
         signOut(auth)
           .then(() => {
-            // Sign-out successful.
+            dispatch(removeUser())
           })
           .catch((error) => {
             alert(error)
           })
-        dispatch(removeUser())
       }}
     >
       <Link to="/signin">SIGN OUT</Link>

@@ -17,10 +17,11 @@ export function Header(): JSX.Element {
   const auth = getAuth()
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    // onAuthStateChanged возвращает функцию отписки от события
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         user
-          ?.getIdToken()
+          .getIdToken()
           .then((result) => {
             dispatch(
               setUser({
@@ -35,6 +36,11 @@ export function Header(): JSX.Element {
           })
       }
     })
+
+    // отписка
+    return () => {
+      unsubscribe()
+    }
   }, [auth])
 
   return localUser.isAuth ? (
