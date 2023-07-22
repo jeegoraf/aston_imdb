@@ -5,11 +5,11 @@ import { useDispatch } from 'react-redux'
 
 import { LoadingPage } from '../pages/LoadingPage'
 import { setUser } from '../store/slices/userSlice'
-import { FavouritesButton } from './FavouritesButton'
-import { HistoryButton } from './HistoryButton'
-import { HomeButton } from './HomeButton'
+import { FavouritesButton } from './buttons/FavouritesButton'
+import { HistoryButton } from './buttons/HistoryButton'
+import { HomeButton } from './buttons/HomeButton'
+import { SignOutButton } from './buttons/SignOutButton'
 import { SignInAndRegister } from './SignInAndRegister'
-import { SignOutButton } from './SignOutButton'
 
 export function Header(): JSX.Element {
   const dispatch = useDispatch()

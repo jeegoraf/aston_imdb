@@ -1,7 +1,7 @@
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 
-import { db } from '../firebase'
-import { useAuth } from '../hooks/useAuth'
+import { db } from '../../firebase'
+import { useAuth } from '../../hooks/useAuth'
 
 export function AddToFavouritesButton(props: {
   id: string | undefined

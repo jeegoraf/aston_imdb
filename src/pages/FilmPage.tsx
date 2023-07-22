@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 
 import { useGetFilmByIdQuery } from '../api'
-import { AddToFavouritesButton } from '../components/AddToFavouritesButton'
+import { AddToFavouritesButton } from '../components/buttons/AddToFavouritesButton'
 import { Header } from '../components/Header'
 import { SearchPanel } from '../components/SearchPanel'
 import { useAuth } from '../hooks/useAuth'
