@@ -1,4 +1,4 @@
-import { getAuth, getIdToken, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
@@ -37,7 +37,7 @@ export function Header(): JSX.Element {
       }
     })
     // отписка
-    unsubscribe()
+    return unsubscribe
   }, [auth])
 
   return localUser.isAuth ? (
