@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useDispatch } from 'react-redux'
 
-import { LoadingPage } from '../pages/LoadingPage'
 import { setUser } from '../store/slices/userSlice'
 import { FavouritesButton } from './buttons/FavouritesButton'
 import { HistoryButton } from './buttons/HistoryButton'
@@ -14,10 +13,9 @@ import { SignInAndRegister } from './SignInAndRegister'
 export function Header(): JSX.Element {
   const dispatch = useDispatch()
 
-  const auth = getAuth()
-
   // данные о пользователе с сервера
-  const [user, loading, error] = useAuthState(auth)
+  // здесь мы проверяем, авторизован ли пользователь на сервере, и синхронизируем redux store
+  const [user, loading, error] = useAuthState(getAuth())
 
   useEffect(() => {
     if (user) {
@@ -36,9 +34,9 @@ export function Header(): JSX.Element {
           alert(err)
         })
     }
-  })
+  }, [user])
 
-  if (loading) return <LoadingPage />
+  if (loading) return <></>
 
   return user ? (
     <div className="sticky top-0 z-10 flex justify-between bg-blue px-40">

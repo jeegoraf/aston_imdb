@@ -1,6 +1,4 @@
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
-
-import { db } from '../../firebase'
+import { updateFavourites } from '../../firebase'
 import { useAuth } from '../../hooks/useAuth'
 
 export function AddToFavouritesButton(props: {
@@ -10,18 +8,12 @@ export function AddToFavouritesButton(props: {
   description: string
   poster: string | undefined
 }) {
+  // мы знаем, что пользователь точно авторизован и можем взять email из локального хранилища
   const { email } = useAuth()
 
   const addToFavourites = () => {
     if (email) {
-      const docRef = doc(db, `users/${email}`)
-      updateDoc(docRef, {
-        favourites: arrayUnion(props),
-      })
-        .then(() => {})
-        .catch((err) => {
-          alert(err)
-        })
+      updateFavourites(email, props)
     }
   }
   return (

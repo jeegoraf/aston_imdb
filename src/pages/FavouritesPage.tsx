@@ -8,18 +8,15 @@ import { FilmsList } from '../components/FilmsList'
 import { Header } from '../components/Header'
 import { SearchPanel } from '../components/SearchPanel'
 import { db } from '../firebase'
-import { useAuth } from '../hooks/useAuth'
 import { LoadingPage } from './LoadingPage'
 
 export function FavouritesPage() {
-  const { email } = useAuth()
-
   const auth = getAuth()
 
   const [user, userIsLoading, userError] = useAuthState(auth)
 
   const [data, dataIsloading, dataError] = useDocument(
-    doc(db, '/users', `/${email}`)
+    doc(db, '/users', `/${user?.email}`)
   )
 
   if (userIsLoading) return <LoadingPage></LoadingPage>

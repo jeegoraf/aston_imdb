@@ -1,6 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
 
-import { useAuth } from './hooks/useAuth'
 import { FavouritesPage } from './pages/FavouritesPage'
 import { FilmPage } from './pages/FilmPage'
 import { HomePage } from './pages/HomePage'
@@ -9,7 +8,6 @@ import { SearchPage } from './pages/SearchPage'
 import { SignInPage } from './pages/SignInPage'
 
 export function App(): JSX.Element {
-  const { isAuth } = useAuth()
   return (
     <div className="h-screen">
       <Routes>
