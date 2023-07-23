@@ -1,14 +1,19 @@
+import { getAuth } from 'firebase/auth'
 import { useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router-dom'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 import { useLazyGetFilmsByKeywordQuery } from '../api'
+import { updateHistory } from '../firebase'
 import { type FilmShort } from '../types/types'
 
 export function SearchPanel() {
   const [items, setItems] = useState<FilmShort[]>([])
   const [input, setInput] = useState<string>('')
   const [getFilmsByKeyword] = useLazyGetFilmsByKeywordQuery()
+
+  const [user, userIsLoading, userError] = useAuthState(getAuth())
 
   const navigate = useNavigate()
 
@@ -22,7 +27,7 @@ export function SearchPanel() {
             id: item.id,
             name: item.name,
             description: item.description,
-            year: item.year,
+            year: item.year
           }
           return film
         })
@@ -36,10 +41,12 @@ export function SearchPanel() {
   // обработка нажатия на кнопку поиска
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
+    if (user) updateHistory(user?.email, `/search/${input}`)
     navigate(`/search/${input}`)
   }
 
   const handleSelect = (item: FilmShort) => {
+    if (user) updateHistory(user?.email, `/film/${item.id}`)
     navigate(`/film/${item.id}`)
   }
 

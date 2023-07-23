@@ -6,6 +6,7 @@ import { Navigate } from 'react-router'
 
 import { FilmsList } from '../components/FilmsList'
 import { Header } from '../components/Header'
+import { HistoryList } from '../components/HistoryList'
 import { SearchPanel } from '../components/SearchPanel'
 import { db } from '../firebase'
 import LoadingPage from './LoadingPage'
@@ -19,14 +20,15 @@ export default function FavouritesPage() {
     doc(db, '/users', `/${user?.email}`)
   )
 
-  if (userIsLoading) return <LoadingPage></LoadingPage>
+  if (userIsLoading) return <LoadingPage />
 
   if (!user) return <Navigate to="/signin" />
 
   return (
     <div className="flex flex-col">
-      <Header /> <SearchPanel />{' '}
-      <FilmsList films={{ docs: data?.get('favourites') }} />
+      <Header />
+      <SearchPanel />
+      <HistoryList data={data?.get('history')?.reverse()} />
     </div>
   )
 }

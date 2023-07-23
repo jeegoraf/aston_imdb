@@ -25,7 +25,7 @@ export function Register(): JSX.Element {
         const docRef = doc(db, 'users', email)
         const data = {
           favourites: [],
-          history: [],
+          history: []
         }
         setDoc(docRef, data)
           .then(() => {
@@ -42,7 +42,7 @@ export function Register(): JSX.Element {
             const response = {
               email: user.email,
               id: user.uid,
-              token: result,
+              token: result
             }
             dispatch(setUser(response))
             navigate('/')

@@ -1,8 +1,6 @@
 // Import the functions you need from the SDKs you need
-import {type FirebaseApp, initializeApp} from 'firebase/app'
-import {arrayUnion, doc, getFirestore, updateDoc} from 'firebase/firestore'
-
-import {type FilmShort} from './types/types'
+import { type FirebaseApp, initializeApp } from 'firebase/app'
+import { arrayUnion, doc, getFirestore, updateDoc } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -23,6 +21,17 @@ export const updateFavourites = (email: string, data: {
   const docRef = doc(db, `users/${email}`)
   updateDoc(docRef, {
     favourites: arrayUnion(data)
+  })
+    .then(() => {})
+    .catch((err) => {
+      alert(err)
+    })
+}
+
+export const updateHistory = (email: string | null, data: string) => {
+  const docRef = doc(db, `users/${email}`)
+  updateDoc(docRef, {
+    history: arrayUnion(data)
   })
     .then(() => {})
     .catch((err) => {

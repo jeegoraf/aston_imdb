@@ -32,19 +32,17 @@ export function SignIn(): JSX.Element {
             if (!res.data()) {
               const data = {
                 favourites: [],
-                history: [],
+                history: []
               }
               setDoc(docRef, data, { merge: true })
-                .then(() => {
-                  console.log('Collection created')
-                })
+                .then(() => {})
                 .catch((err) => {
-                  console.error(err)
+                  alert(err)
                 })
             }
           })
           .catch((err) => {
-            console.log(err)
+            alert(err)
           })
 
         // запись пользователя в redux store
@@ -54,7 +52,7 @@ export function SignIn(): JSX.Element {
             const response = {
               email: user.email,
               id: user.uid,
-              token: result,
+              token: result
             }
             dispatch(setUser(response))
             navigate('/')
