@@ -1,10 +1,7 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth'
-import { doc, setDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
 
-import { db } from '../firebase'
+import { signUpFirebase } from '../firebase'
 import { useAppDispatch } from '../hooks/hooks'
-import { setUser } from '../store/slices/userSlice'
 import { Form } from './Form'
 
 export function Register(): JSX.Element {
@@ -18,42 +15,8 @@ export function Register(): JSX.Element {
     event: Event | undefined
   ): void => {
     event?.preventDefault()
-    const auth = getAuth()
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(({ user }) => {
-        // создание коллекции для пользователя
-        const docRef = doc(db, 'users', email)
-        const data = {
-          favourites: [],
-          history: []
-        }
-        setDoc(docRef, data)
-          .then(() => {
-            console.log('Collection created')
-          })
-          .catch((err) => {
-            console.error(err)
-          })
-
-        // авторизация на сервере
-        user
-          .getIdToken()
-          .then((result) => {
-            const response = {
-              email: user.email,
-              id: user.uid,
-              token: result
-            }
-            dispatch(setUser(response))
-            navigate('/')
-          })
-          .catch(() => {
-            alert('UNABLE TO GET TOKEN')
-          })
-      })
-      .catch(() => {
-        alert('REGISTRATION FAILED')
-      })
+    signUpFirebase(email, password, dispatch)
+    navigate('/')
   }
   return <Form title="Sign Up" handleClick={handleRegister}></Form>
 }

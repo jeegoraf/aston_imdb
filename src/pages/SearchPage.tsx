@@ -11,10 +11,10 @@ export default function SearchPage() {
 
   const definedKeyWord = keyWord ?? ''
 
-  const { data, error, isLoading } = useGetFilmsByKeywordQuery({
+  const { data, isLoading } = useGetFilmsByKeywordQuery({
     keyWord: definedKeyWord,
     page: 1,
-    count: 24
+    count: 24,
   })
 
   if (isLoading) return <LoadingPage />

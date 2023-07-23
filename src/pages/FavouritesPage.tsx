@@ -13,11 +13,9 @@ import LoadingPage from './LoadingPage'
 export default function FavouritesPage() {
   const auth = getAuth()
 
-  const [user, userIsLoading, userError] = useAuthState(auth)
+  const [user, userIsLoading] = useAuthState(auth)
 
-  const [data, dataIsloading, dataError] = useDocument(
-    doc(db, '/users', `/${user?.email}`)
-  )
+  const [data] = useDocument(doc(db, '/users', `/${user?.email}`))
 
   if (userIsLoading) return <LoadingPage></LoadingPage>
 

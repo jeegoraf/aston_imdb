@@ -1,10 +1,7 @@
-import { getAuth } from 'firebase/auth'
-import { useContext, useEffect } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import { useDispatch } from 'react-redux'
+import { useContext } from 'react'
 
 import { ThemeContext } from '../App'
-import { setUser } from '../store/slices/userSlice'
+import { useSyncFirebase } from '../hooks/useSyncFirebase'
 import { FavouritesButton } from './buttons/FavouritesButton'
 import { HistoryButton } from './buttons/HistoryButton'
 import { HomeButton } from './buttons/HomeButton'
@@ -13,36 +10,14 @@ import { SwitchThemeButton } from './buttons/SwitchThemeButton'
 import { SignInAndRegister } from './SignInAndRegister'
 
 export function Header(): JSX.Element {
-  const dispatch = useDispatch()
-
   const theme = useContext(ThemeContext)
 
   const className = 'sticky top-0 z-10 flex justify-between px-40 '.concat(
     theme.theme
   )
 
-  // здесь мы проверяем, авторизован ли пользователь на сервере ...
-  const [user, loading, error] = useAuthState(getAuth())
-
-  // и синхронизируем redux store
-  useEffect(() => {
-    if (user) {
-      user
-        .getIdToken()
-        .then((result) => {
-          dispatch(
-            setUser({
-              email: user.email,
-              token: result,
-              id: user.uid
-            })
-          )
-        })
-        .catch((err) => {
-          alert(err)
-        })
-    }
-  }, [user])
+  // здесь происходит и синхронизация в том числе
+  const [user, loading] = useSyncFirebase()
 
   if (loading) return <></>
 
