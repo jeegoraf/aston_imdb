@@ -1,11 +1,17 @@
+import { getAuth } from 'firebase/auth'
 import { useState } from 'react'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router-dom'
 
+import { updateHistory } from '../firebase'
 import { type FilmShort } from '../types/types'
 
 export function FilmCard(props: FilmShort) {
-  // запрос к API по разным адресам возвращает объекты разного вида, поэтому нужна проверка
   const [id, setId] = useState(props.id)
+
+  const [user, userLoading, userError] = useAuthState(getAuth())
+
+  // запрос к API по разным адресам возвращает объекты разного вида, поэтому нужна проверка
   const imgURL =
     typeof props.poster === 'object' ? props.poster?.url : props.poster
 
@@ -13,6 +19,7 @@ export function FilmCard(props: FilmShort) {
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
+    if (user) updateHistory(user?.email, `/film/${id}`)
     navigate(`/film/${id}`)
   }
 

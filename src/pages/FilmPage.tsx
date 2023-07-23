@@ -1,17 +1,17 @@
-import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useGetFilmByIdQuery } from '../api'
-import { AddToFavouritesButton } from '../components/AddToFavouritesButton'
+import { AddToFavouritesButton } from '../components/buttons/AddToFavouritesButton'
 import { Header } from '../components/Header'
 import { SearchPanel } from '../components/SearchPanel'
-import { LoadingPage } from './LoadingPage'
+import LoadingPage from './LoadingPage'
 
-export function FilmPage() {
+export default function FilmPage() {
   const { id } = useParams()
 
+  // получаем данные с API
   const { data, error, isLoading } = useGetFilmByIdQuery(id, {
-    skip: !id,
+    skip: !id
   })
 
   if (isLoading) return <LoadingPage />
@@ -26,7 +26,13 @@ export function FilmPage() {
           <span>{`Название: ${data.name}`}</span>
           <div>{`Описание: ${data.description}`}</div>
           <div>{`Год: ${data.year}`}</div>
-          <AddToFavouritesButton id={id} />
+          <AddToFavouritesButton
+            id={id}
+            name={data.name}
+            description={data.description}
+            poster={data.poster?.url}
+            year={data.year}
+          ></AddToFavouritesButton>
         </div>
       </div>
     </div>

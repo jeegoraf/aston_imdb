@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { RegisterButton } from './RegisterButton'
-import { SignInButton } from './SignInButton'
+import { RegisterButton } from './buttons/RegisterButton'
+import { SignInButton } from './buttons/SignInButton'
 
 export function SignInAndRegister(): JSX.Element {
   return (

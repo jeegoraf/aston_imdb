@@ -10,6 +10,7 @@ module.exports = {
         darkBlue: '#2c4464',
         brown: '#9c6c4c',
         beige: '#e1c9b4',
+        green: '#004524',
       },
     },
   },

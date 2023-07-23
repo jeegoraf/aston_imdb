@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import {type FirebaseApp, initializeApp} from 'firebase/app'
-import {getFirestore} from 'firebase/firestore'
+import { type FirebaseApp, initializeApp } from 'firebase/app'
+import { arrayUnion, doc, getFirestore, updateDoc } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -11,8 +11,34 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID
 }
 
-// Initialize Firebase
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const updateFavourites = (email: string, data: {
+  id: string | undefined
+  name: string
+  year: number
+  description: string
+  poster: string | undefined
+}) => {
+  const docRef = doc(db, `users/${email}`)
+  updateDoc(docRef, {
+    favourites: arrayUnion(data)
+  })
+    .then(() => {})
+    .catch((err) => {
+      alert(err)
+    })
+}
+
+export const updateHistory = (email: string | null, data: string) => {
+  const docRef = doc(db, `users/${email}`)
+  updateDoc(docRef, {
+    history: arrayUnion(data)
+  })
+    .then(() => {})
+    .catch((err) => {
+      alert(err)
+    })
+}
+// Initialize Firebasesrc\firebase.ts
 const app: FirebaseApp = initializeApp(firebaseConfig)
 
-const db = getFirestore(app)
+export const db = getFirestore(app)

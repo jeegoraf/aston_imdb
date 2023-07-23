@@ -1,7 +1,7 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 
-import {filmAPI} from '../api'
-import {userReducer} from './slices/userSlice'
+import { filmAPI } from '../api'
+import { userReducer } from './slices/userSlice'
 
 const rootReducer = combineReducers({
   user: userReducer,
