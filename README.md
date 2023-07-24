@@ -10,7 +10,7 @@
 5. Есть применение Context API - инициализируется в [App](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/App.tsx), потребляется [Header'ом](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/components/Header.tsx).
 6. Применяется [предохранитель](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/components/FilmsList.tsx).
 7. Есть кастомный [хук](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/hooks/useAuth.ts).
-8. PropTypes не использовал.
+8. Используются [Proptypes](https://github.com/jeegoraf/kinopoisk_wrapper/blob/bugfix/no-ref/final-cleanup/src/components/HistoryList.tsx).
 9. debounce реализован внутри готовой компоненты [react-search-autocomplete](https://github.com/sickdyd/react-search-autocomplete). Чему мы научились? Научились больше ее не использовать.
 10. Есть применение [lazy+Suspense](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/App.tsx).
 
