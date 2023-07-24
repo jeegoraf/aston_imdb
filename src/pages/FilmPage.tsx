@@ -42,7 +42,7 @@ export default function FilmPage() {
               id={id}
               name={film.name}
               description={film.description}
-              poster={film.poster?.url}
+              poster={film.poster}
               year={film.year}
             ></AddToFavouritesButton>
           ) : (
@@ -50,7 +50,7 @@ export default function FilmPage() {
               id={id}
               name={film.name}
               description={film.description}
-              poster={film.poster?.url}
+              poster={film.poster}
               year={film.year}
             />
           )}

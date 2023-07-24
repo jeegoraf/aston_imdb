@@ -36,11 +36,11 @@ export const filmAPI = createApi({
   endpoints: (build) => ({
     getFilmsByKeyword: build.query<Response, {keyWord: string, page: number, count: number}>({
       query: (arg) => createRequest(`v1.2/movie/search?page=${arg.page}&limit=${arg.count}&query=${arg.keyWord}`),
-      transformResponse: (response: Response) => cutResponse(response)
+      transformResponse: cutResponse
     }),
     getTop24: build.query<Response, void>({
       query: () => createRequest('v1.3/movie?page=1&limit=24&selectFields=id&selectFields=name&selectFields=description&selectFields=year&selectFields=poster'),
-      transformResponse: (response: Response) => cutResponse(response)
+      transformResponse: cutResponse
     }),
     getFilmById: build.query<FilmShort, string | undefined>({
       query: (arg) => createRequest(`v1.3/movie/${arg}`),

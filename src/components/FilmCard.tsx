@@ -48,7 +48,7 @@ export function FilmCard(props: FilmShort) {
           id={props.id.toString()}
           name={props.name}
           description={props.description}
-          poster={props.poster?.url}
+          poster={props.poster}
           year={props.year}
         ></AddToFavouritesButton>
       ) : (
@@ -56,7 +56,7 @@ export function FilmCard(props: FilmShort) {
           id={props.id.toString()}
           name={props.name}
           description={props.description}
-          poster={props.poster?.url}
+          poster={props.poster}
           year={props.year}
         />
       )}

@@ -1,12 +1,11 @@
 // Import the functions you need from the SDKs you need
-import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, type User} from '@firebase/auth'
+import {createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut} from '@firebase/auth'
 import {type FirebaseApp, initializeApp} from 'firebase/app'
 import {arrayRemove, arrayUnion, doc, type DocumentData, type DocumentSnapshot, getDoc, getFirestore, setDoc, updateDoc} from 'firebase/firestore'
-import {useDocument} from 'react-firebase-hooks/firestore'
 import {type AnyAction, type Dispatch} from 'redux'
 
 import {removeUser, setUser} from './store/slices/userSlice'
-import {type FilmShort} from './types/types'
+import {type FilmShort, type Poster} from './types/types'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -22,7 +21,7 @@ export const updateFavourites = (email: string, data: {
   name: string
   year: number
   description: string
-  poster: string | undefined
+  poster: Poster | undefined
 }) => {
   const docRef = doc(db, `users/${email}`)
   updateDoc(docRef, {
@@ -153,7 +152,7 @@ export const removeFromFavourites = (email: string, data: {
   name: string
   year: number
   description: string
-  poster: string | undefined
+  poster: Poster | undefined
 }) => {
   const docRef = doc(db, `users/${email}`)
   updateDoc(docRef, {
@@ -169,6 +168,3 @@ export const removeFromFavourites = (email: string, data: {
 const app: FirebaseApp = initializeApp(firebaseConfig)
 
 export const db = getFirestore(app)
-function dispatch (arg0: any) {
-  throw new Error('Function not implemented.')
-}
