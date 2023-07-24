@@ -18,7 +18,7 @@
 ### Что касается Redux:
 1. Использовался [Redux-Toolkit](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/store/store.ts), напрямую к API Redux'a не обращался.
 2. Использовались [слайсы](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/store/slices/userSlice.ts).
-3. Кастомные мидлвары не использовал.
+3. Используются [кастомные мидлвары](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/store/store.ts) для логирования изменений в Redux Store.
 4. Зато использовал [RTK-Query и Transforming Responses](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/api.ts)
  
  <b>Из дополнительных требований</b> я решил использовать Typescript и Firebase ([регистрация](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/components/Register.tsx), [авторизация](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/components/SignIn.tsx), [избранное](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/components/buttons/AddToFavouritesButton.tsx),[история (например, добавление в базу данных по запросу по ключевому слову)](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/components/SearchPanel.tsx). И на всякий случай оставлю здесь [конфиг Firebase](https://github.com/jeegoraf/kinopoisk_wrapper/blob/master/src/firebase.ts). 
