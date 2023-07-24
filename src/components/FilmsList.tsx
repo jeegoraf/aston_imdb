@@ -16,6 +16,7 @@ export function FilmsList(props: { films: Response | { docs: FilmShort[] } }) {
       ></FilmCard>
     )
   })
+
   return (
     <ErrorBoundary
       fallback={

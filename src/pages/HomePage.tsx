@@ -1,22 +1,11 @@
-import { getAuth } from 'firebase/auth'
-import { useEffect } from 'react'
-import { useAuthState } from 'react-firebase-hooks/auth'
-
 import { useGetTop24Query } from '../api'
 import { FilmsList } from '../components/FilmsList'
 import { Header } from '../components/Header'
 import { SearchPanel } from '../components/SearchPanel'
-import { updateHistory } from '../firebase'
 import LoadingPage from './LoadingPage'
 
 export default function HomePage(): JSX.Element {
-  const { data, error, isLoading } = useGetTop24Query()
-
-  const [user, userIsLoading, userError] = useAuthState(getAuth())
-
-  useEffect(() => {
-    if (user) updateHistory(user.email, '/')
-  }, [user])
+  const { data, isLoading } = useGetTop24Query()
 
   if (isLoading) return <LoadingPage />
 

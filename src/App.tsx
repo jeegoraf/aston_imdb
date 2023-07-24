@@ -3,7 +3,8 @@ import React, {
   lazy,
   type SetStateAction,
   Suspense,
-  useState
+  useMemo,
+  useState,
 } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -24,20 +25,28 @@ interface IThemeContext {
 
 export const ThemeContext = React.createContext<IThemeContext>({
   theme: '',
-  setTheme: () => {}
+  setTheme: () => {},
 })
 
 export function App(): JSX.Element {
   const [theme, setTheme] = useState('bg-sky-900')
+
+  const contextValue = useMemo(
+    () => ({
+      theme,
+      setTheme,
+    }),
+    [theme]
+  )
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={contextValue}>
       <div className="h-screen">
         <Suspense fallback={<LoadingPage />}>
           <Routes>
             <Route path="/" element={<HomePage />}></Route>
             <Route path="/signin" element={<SignInPage />}></Route>
             <Route path="/signup" element={<RegisterPage />}></Route>
-            <Route path="/search/:keyWord" element={<SearchPage />}></Route>
+            <Route path="/search/:keyWord?" element={<SearchPage />}></Route>
             <Route path="/film/:id" element={<FilmPage />}></Route>
             <Route path="/favourites" element={<FavouritesPage />}></Route>
             <Route path="/history" element={<HistoryPage />}></Route>

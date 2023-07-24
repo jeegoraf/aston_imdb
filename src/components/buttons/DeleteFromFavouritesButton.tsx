@@ -1,8 +1,8 @@
-import { updateFavourites } from '../../firebase'
+import { removeFromFavourites } from '../../firebase'
 import { useAuth } from '../../hooks/useAuth'
 import { type Poster } from '../../types/types'
 
-export function AddToFavouritesButton(props: {
+export function DeleteFromFavouritesButton(props: {
   id: string | undefined
   name: string
   year: number
@@ -12,18 +12,17 @@ export function AddToFavouritesButton(props: {
   // мы знаем, что пользователь точно авторизован и можем взять email из локального хранилища
   const { email } = useAuth()
 
-  const addToFavourites = () => {
+  const deleteFromFavourites = () => {
     if (email) {
-      updateFavourites(email, props)
+      removeFromFavourites(email, props)
     }
   }
-  if (!email) return null
   return (
     <button
       className="bg-lightBlue p-3 rounded-xl text-4xl"
-      onClick={addToFavourites}
+      onClick={deleteFromFavourites}
     >
-      Add to Favourites
+      Delete from Favourites
     </button>
   )
 }

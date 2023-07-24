@@ -1,10 +1,13 @@
+import PropTypes, { type InferProps } from 'prop-types'
 import { useNavigate } from 'react-router-dom'
 
-export function HistoryList(props: { data: [] }) {
+export function HistoryList({
+  data,
+}: InferProps<typeof HistoryList.propTypes>) {
   const navigate = useNavigate()
   return (
     <div className="flex flex-col gap-3 pt-3 px-40">
-      {props.data?.map((item) => {
+      {data?.map((item: string) => {
         return (
           <button
             onClick={() => {
@@ -19,4 +22,8 @@ export function HistoryList(props: { data: [] }) {
       })}
     </div>
   )
+}
+
+HistoryList.propTypes = {
+  data: PropTypes.array,
 }

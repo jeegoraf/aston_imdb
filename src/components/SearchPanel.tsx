@@ -13,7 +13,7 @@ export function SearchPanel() {
   const [input, setInput] = useState<string>('')
   const [getFilmsByKeyword] = useLazyGetFilmsByKeywordQuery()
 
-  const [user, userIsLoading, userError] = useAuthState(getAuth())
+  const [user] = useAuthState(getAuth())
 
   const navigate = useNavigate()
 
@@ -22,12 +22,12 @@ export function SearchPanel() {
     setInput(keyWord)
     getFilmsByKeyword({ keyWord, page: 1, count: 10 })
       .then((response) => {
-        const res = response.data?.docs?.map((item: any) => {
+        const res = response.data?.docs?.map((item: FilmShort) => {
           const film: FilmShort = {
             id: item.id,
             name: item.name,
             description: item.description,
-            year: item.year
+            year: item.year,
           }
           return film
         })
@@ -46,7 +46,6 @@ export function SearchPanel() {
   }
 
   const handleSelect = (item: FilmShort) => {
-    if (user) updateHistory(user?.email, `/film/${item.id}`)
     navigate(`/film/${item.id}`)
   }
 

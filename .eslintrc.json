@@ -15,6 +15,8 @@
     "multiline-ternary": "off",
     "import/no-default-export": "warn",
     "react/jsx-no-useless-fragment": "warn",
+    "eqeqeq": "warn",
+    "block-spacing": "warn",
     //if we want to group imports can use below.
     "simple-import-sort/imports": "error",
     // suppress errors for missing 'import React' in files
@@ -30,6 +32,7 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-invalid-void-type": "off",
     "@typescript-eslint/restrict-template-expressions": "warn",
-    "@typescript-eslint/no-confusing-void-expression": "warn"
+    "@typescript-eslint/no-confusing-void-expression": "warn",
+    "@typescript-eslint/indent": "warn"
   }
 }
